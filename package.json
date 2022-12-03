@@ -1,0 +1,39 @@
+{
+  "name": "knowledge-storage-application-microservice",
+  "version": "1.0.0",
+  "description": "knowledge-storage-application-microservice",
+  "main": "server.js",
+  "scripts": {
+    "start": "./node_modules/babel-cli/bin/babel-node.js --presets node8 ./server.js",
+    "test": "forever ./node_modules/babel-cli/bin/babel-node.js --presets node8 ./server.js",
+    "nodemon": "nodemon ./node_modules/babel-cli/bin/babel-node.js --presets node8 ./server.js"
+  },
+  "author": "Raghu_Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-node8": "^1.2.0",
+    "body-parser": "^1.19.0",
+    "co": "^4.6.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "cron-master": "^1.0.1",
+    "express": "^4.17.1",
+    "forever": "^1.0.0",
+    "moment": "^2.27.0",
+    "mongodb": "^3.3.2",
+    "mongoose": "^5.7.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.2",
+    "path": "^0.12.7",
+    "pug": "^3.0.2",
+    "request": "^2.88.2",
+    "slack-notifier": "0.0.3",
+    "stripe": "^8.214.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6",
+    "twilio": "^3.72.0",
+    "yup": "^0.29.3"
+  }
+}

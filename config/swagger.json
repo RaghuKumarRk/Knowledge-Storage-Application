@@ -1,0 +1,1386 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "User MicroService",
+    "description": "MicroService for Users in the system",
+    "license": {
+      "name": "Leewayhertz",
+      "url": "http://leewayhertz.com"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/sign-up": {
+      "post": {
+        "description": "First time user signs up",
+        "summary": "Sign Up",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Sign up",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sign-up"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/user": {
+      "put": {
+        "description": "Create profile for first time / Update User",
+        "summary": "Edit user",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Edit profile",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/edit-profile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/check-username-exist": {
+      "get": {
+        "description": "Check if the username exist",
+        "summary": "Check username exist",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "username for checking"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/check-email-exist": {
+      "get": {
+        "description": "Check if the email exist",
+        "summary": "Check email exist",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "email for checking"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/user-details": {
+      "get": {
+        "description": "For fetching user details by email / userName / id",
+        "summary": "Fetch user details",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "For getting user details by username"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "For getting user details by id"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "For getting user details by email"
+          },
+          {
+            "name": "currentUser",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "For isFollowing key with details"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/follow": {
+      "post": {
+        "description": "For follow user",
+        "summary": "Follow user",
+        "tags": [
+          "user"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Follow user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/follow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/unfollow": {
+      "delete": {
+        "description": "For unfollow user",
+        "summary": "Unfollow user",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Unfollow user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/unfollow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/following-list": {
+      "get": {
+        "description": "For fetching list of followings",
+        "summary": "Get list of followings",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "userId required for getting following list"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "type": "number",
+            "default": 0,
+            "description": "userId required for getting following list"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number",
+            "default": 15,
+            "description": "userId required for getting following list"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/followers-list": {
+      "get": {
+        "description": "For fetching list of followers",
+        "summary": "Get list of followers",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "userId required for getting follower list"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "type": "number",
+            "default": 0,
+            "description": "userId required for getting following list"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number",
+            "default": 15,
+            "description": "userId required for getting following list"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/rate-party": {
+      "post": {
+        "description": "For rating user",
+        "summary": "Rate user",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Rate user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/rating"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/get-ratings": {
+      "post": {
+        "description": "To get ratings of particular user with user and target user Id",
+        "summary": "Get ratings",
+        "tags": [
+          "user"
+        ],
+        "type": "array",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "get user rating",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/get-rating"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/suggested-users": {
+      "get": {
+        "description": "For fetching suggestion of users",
+        "summary": "Get suggested users",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "currentUser",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "userId required for getting list of suggested users"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/users-list": {
+      "post": {
+        "description": "User Lists for explore section",
+        "summary": "User List",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Users List",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users-list"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/change-username": {
+      "put": {
+        "description": "Change user's existing username",
+        "summary": "Update username",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Change username",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/change-username"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/search-by-username": {
+      "post": {
+        "description": "Search users by username",
+        "summary": "Search users by username",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "description": "Enter username",
+            "schema": {
+              "$ref": "#/definitions/search-by-username"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/change-password": {
+      "post": {
+        "description": "Update user's existing password",
+        "summary": "Update password",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Change Password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/change-password"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/generate-chat-token/{user}": {
+      "get": {
+        "description": "For generating twilio chat token",
+        "summary": "Twilio chat token",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "targetUser",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "To check if target user has been blocked"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/help": {
+      "post": {
+        "description": "For get help",
+        "summary": "Get Help",
+        "tags": [
+          "Help"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Get Help",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/help"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/add-device": {
+      "post": {
+        "description": "For adding devices for notification",
+        "summary": "Add Device",
+        "tags": [
+          "Device"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add device",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/add-device"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/login-device": {
+      "put": {
+        "description": "For getting notifications on login devices",
+        "summary": "For getting notifications",
+        "tags": [
+          "Device"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Device Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login-device"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/logout-device": {
+      "put": {
+        "description": "To not getting notifications on logout devices",
+        "summary": "Change status of device to logout",
+        "tags": [
+          "Device"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Device Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/logout-device"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/send-push-notification": {
+      "post": {
+        "description": "To send message push notification",
+        "summary": "Send push notification for messages",
+        "tags": [
+          "Device"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Required Parameters",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/send-push-notification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/block-user": {
+      "post": {
+        "description": "Block profile",
+        "summary": "Block user",
+        "tags": [
+          "user"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Block Profile",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/block-user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/get-device-id": {
+      "post": {
+        "description": "API to get all login device based on user id",
+        "summary": "Get login device",
+        "tags": [
+          "Device"
+        ],
+        "type": "array",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Get device id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/get-device"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/block-list": {
+      "get": {
+        "description": "Get block list",
+        "summary": "Block List",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "currentUser",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "userId to get list of block users"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/unblock-user": {
+      "delete": {
+        "description": "Unblock profile",
+        "summary": "Unblock user",
+        "tags": [
+          "user"
+        ],
+        "type": "object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Unblock",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/unblock-user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/check-block-status": {
+      "get": {
+        "description": "For message feature, To check user is blocked or not from both side",
+        "summary": "To check status of block",
+        "tags": [
+          "user"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "currentUser",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "userId of current user"
+          },
+          {
+            "name": "targetUser",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "userId of target user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/privacy-policy": {
+      "get": {
+        "description": "For getting mooday privacy policy",
+        "summary": "Privacy Policy",
+        "tags": [
+          "Privacy Policy"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/terms-of-services": {
+      "get": {
+        "description": "For getting mooday terms of services",
+        "summary": "Terms of Services",
+        "tags": [
+          "Privacy Policy"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "sign-up": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "authId": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "unfollow"
+      }
+    },
+    "edit-profile": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "profileImage": {
+          "type": "string"
+        },
+        "dateOfBirth": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "addressLine": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "state": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "countryCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "phoneNumber": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "university": {
+          "type": "string"
+        },
+        "stripeCustomerId": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "edit-profile"
+      }
+    },
+    "follow": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "targetUserId": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "follow"
+      }
+    },
+    "unfollow": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "targetUserId": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "unfollow"
+      }
+    },
+    "rating": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "targetUserId": {
+          "type": "string"
+        },
+        "partyId": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "xml": {
+        "name": "rating"
+      }
+    },
+    "get-rating": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string"
+        },
+        "targetUser": {
+          "type": "string"
+        },
+        "partyId": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "unfollow"
+      }
+    },
+    "change-username": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "newUsername": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "change-username"
+      }
+    },
+    "search-by-username": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "skip": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number",
+          "example": 15
+        },
+        "currentUser": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "search-by-username"
+      }
+    },
+    "change-password": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "authId": {
+          "type": "string"
+        },
+        "oldPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "change-password"
+      }
+    },
+    "help": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "help"
+      }
+    },
+    "users-list": {
+      "type": "object",
+      "properties": {
+        "currentUser": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "users-list"
+      }
+    },
+    "add-device": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string"
+        },
+        "deviceID": {
+          "type": "string"
+        },
+        "deviceType": {
+          "type": "string"
+        },
+        "pushToken": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "add-device"
+      }
+    },
+    "login-device": {
+      "type": "object",
+      "properties": {
+        "deviceID": {
+          "type": "string"
+        },
+        "pushToken": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "login-device"
+      }
+    },
+    "logout-device": {
+      "type": "object",
+      "properties": {
+        "deviceID": {
+          "type": "string"
+        },
+        "pushToken": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "logout-device"
+      }
+    },
+    "send-push-notification": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sender": {
+          "type": "string"
+        },
+        "receiver": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "send-push-notification"
+      }
+    },
+    "block-user": {
+      "type": "object",
+      "properties": {
+        "currentUser": {
+          "type": "string"
+        },
+        "targetUser": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "block-user"
+      }
+    },
+    "unblock-user": {
+      "type": "object",
+      "properties": {
+        "currentUser": {
+          "type": "string"
+        },
+        "targetUser": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "unblock-user"
+      }
+    },
+    "get-device": {
+      "type": "array",
+      "items": {
+        "minItems": 1,
+        "type": "string"
+      }
+    }
+  }
+}
